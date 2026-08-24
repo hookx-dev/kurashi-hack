@@ -1,17 +1,39 @@
 ---
+import Layout from '../layouts/Layout.astro';
 
+// Load all articles
+const allArticles = Object.values(import.meta.glob('./article-*.astro', { eager: true })) as any[];
+
+// Sort by date descending
+const sortedArticles = allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="KURASHI HACK - 暮らしを少し良くするおすすめアイテム">
+    <div slot="hero" class="hero">
+        <div class="container">
+            <h1>暮らしの「ちょっとした不満」を、<br>道具の力で解決する。</h1>
+            <p>買って失敗しないための、本音の比較レビューをお届けします。</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">新着記事</h2>
+    <div class="article-grid">
+        {sortedArticles.map((article) => (
+            <article class="card">
+                <a href={article.url} class="card-link">
+                    <div class="card-img">
+                        <img src={article.image} alt={(article.title || '').replace(/【.*?】/, '')} />
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="category-label">{article.category}</span>
+                            <time class="card-date">{article.date}</time>
+                        </div>
+                        <h2 class="card-title">{article.title || 'Untitled'}</h2>
+                        <p class="card-excerpt">{article.excerpt}</p>
+                    </div>
+                </a>
+            </article>
+        ))}
+    </div>
+</Layout>

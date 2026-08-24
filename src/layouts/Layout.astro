@@ -5,9 +5,45 @@ export interface Props {
     title: string;
     description?: string;
     category?: string;
+    image?: string;
+    date?: string;
 }
 
-const { title, description = "日々の生活の小さなイライラを解決する、本当に買ってよかったおすすめアイテムを厳選してご紹介します。", category } = Astro.props;
+const { 
+  title, 
+  description = "日々の生活の小さなイライラを解決する、本当に買ってよかったおすすめアイテムを厳選してご紹介します。", 
+  category,
+  image = "/favicon.svg",
+  date
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
+const socialImageURL = new URL(image, Astro.site || Astro.url);
+const siteName = "KURASHI HACK";
+
+// 構造化データ（JSON-LD）の作成
+const schema = {
+  "@context": "https://schema.org",
+  "@type": date ? "Article" : "WebSite",
+  "name": title,
+  "headline": title,
+  "description": description,
+  "image": socialImageURL.toString(),
+  "url": canonicalURL.toString(),
+  ...(date && { "datePublished": date.replace(/\./g, '-') + "T00:00:00+09:00" }),
+  "author": {
+    "@type": "Person",
+    "name": "KURASHI HACK編集部"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/favicon.svg", Astro.site || Astro.url).toString()
+    }
+  }
+};
 ---
 
 <!DOCTYPE html>
@@ -17,6 +53,28 @@ const { title, description = "日々の生活の小さなイライラを解決�
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
     <meta name="description" content={description}>
+    
+    <!-- 正規化URL (Canonical) -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- OGP (Open Graph Protocol) -->
+    <meta property="og:type" content={date ? "article" : "website"} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="ja_JP" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+
+    <!-- 構造化データ (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">

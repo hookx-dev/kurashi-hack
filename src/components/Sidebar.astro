@@ -24,7 +24,7 @@ const recentArticles = allArticles
         <h3 class="widget-title">カテゴリー</h3>
         <ul>
             {sortedCategories.map(([cat, count]) => (
-                <li><a href="/">{cat} <span class="category-count">{count}</span></a></li>
+                <li><a href={`/category/${cat}`}>{cat} <span class="category-count">{count}</span></a></li>
             ))}
         </ul>
     </div>

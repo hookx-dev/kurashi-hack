@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const allArticles = Object.values(import.meta.glob('../article-*.astro', { eager: true })) as any[];
+  
+  const uniqueCategories = [...new Set(allArticles.map((article) => article.category).filter(Boolean))];
+  
+  return uniqueCategories.map((category) => {
+    const filteredArticles = allArticles.filter((article) => article.category === category);
+    return {
+      params: { category },
+      props: { articles: filteredArticles },
+    };
+  });
+}
+
+const { category } = Astro.params;
+const { articles } = Astro.props;
+
+// Sort by date descending
+const sortedArticles = articles.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+
+<Layout title={`${category}の記事一覧 | KURASHI HACK`} category={category}>
+    <h2 class="section-title">{category}の記事一覧</h2>
+    <div class="article-grid">
+        {sortedArticles.map((article: any) => (
+            <article class="card">
+                <a href={article.url} class="card-link">
+                    <div class="card-img">
+                        <img src={article.image} alt={(article.title || '').replace(/【.*?】/, '')} />
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="category-label">{article.category}</span>
+                            <time class="card-date">{article.date}</time>
+                        </div>
+                        <h2 class="card-title">{article.title || 'Untitled'}</h2>
+                        <p class="card-excerpt">{article.excerpt}</p>
+                    </div>
+                </a>
+            </article>
+        ))}
+    </div>
+</Layout>

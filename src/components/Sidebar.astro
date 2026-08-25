@@ -1,4 +1,6 @@
 ---
+import Search from './Search.astro';
+
 // Load all articles
 const allArticles = Object.values(import.meta.glob('../pages/article-*.astro', { eager: true })) as any[];
 
@@ -20,6 +22,8 @@ const recentArticles = allArticles
 ---
 
 <aside class="sidebar">
+    <Search />
+
     <div class="widget widget-category">
         <h3 class="widget-title">カテゴリー</h3>
         <ul>

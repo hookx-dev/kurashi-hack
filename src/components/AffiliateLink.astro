@@ -1,0 +1,38 @@
+---
+export interface Props {
+    amazonUrl: string;
+}
+
+const { amazonUrl } = Astro.props;
+
+let keyword = "";
+try {
+    const urlObj = new URL(amazonUrl);
+    if (urlObj.searchParams.has('k')) {
+        keyword = urlObj.searchParams.get('k') || "";
+    }
+} catch (e) {
+    const match = amazonUrl.match(/k=([^&]+)/);
+    if (match) keyword = decodeURIComponent(match[1]);
+}
+
+const rakutenUrl = `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/`;
+const yahooUrl = `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(keyword)}`;
+---
+
+<div class="affiliate-links">
+    <a class="btn-aff btn-amazon" href={amazonUrl} rel="noopener noreferrer" target="_blank">
+        <span class="btn-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M14.61 17.65c-2.48.91-5.69 1.41-8.52 1.41-2.92 0-5.75-.54-8.09-1.54V17c2.51.98 5.48 1.51 8.42 1.51 2.87 0 6.01-.5 8.19-1.42.34-.14.49.19.24.42-.51.48-1.12.87-1.74 1.15l1.5-1.01zm6.91-1.39c-1.36 1.43-3.03 2.15-3.03 2.15l-1.07 1.47s1.86-.6 3.65-2.22l-1.47-.96 1.92-1.4.01-.01c0 .01.76 1.15.54 1.62-.26.54-.55.97-.55.97zM11.66 2.05C5.81 2.05 1.07 6.79 1.07 12.64s4.74 10.59 10.59 10.59 10.59-4.74 10.59-10.59S17.51 2.05 11.66 2.05zm5.78 13.91c-.5.3-1.1.52-1.8.66-.7.14-1.46.21-2.28.21-1.22 0-2.31-.22-3.26-.66-.95-.44-1.72-1.04-2.31-1.8-.59-.76-.89-1.66-.89-2.7 0-1.04.31-1.95.92-2.72.61-.77 1.43-1.37 2.44-1.8 1.01-.43 2.16-.65 3.44-.65 1.14 0 2.19.18 3.14.54.95.36 1.7.83 2.25 1.41l-1.38 2.04c-.45-.44-.99-.81-1.63-1.11-.64-.3-1.35-.45-2.12-.45-.88 0-1.64.19-2.27.56-.63.37-1.12.89-1.46 1.55-.34.66-.51 1.42-.51 2.29 0 .86.17 1.6.51 2.24.34.64.82 1.15 1.45 1.53.63.38 1.38.57 2.24.57.85 0 1.61-.17 2.28-.52.67-.35 1.25-.82 1.74-1.42l1.32 1.93z"/></svg>
+        </span>
+        <span class="btn-text">Amazonで価格を見る</span>
+    </a>
+    <a class="btn-aff btn-rakuten" href={rakutenUrl} rel="noopener noreferrer" target="_blank">
+        <span class="btn-icon">R</span>
+        <span class="btn-text">楽天市場で価格を見る</span>
+    </a>
+    <a class="btn-aff btn-yahoo" href={yahooUrl} rel="noopener noreferrer" target="_blank">
+        <span class="btn-icon">Y!</span>
+        <span class="btn-text">Yahoo!ショッピングで見る</span>
+    </a>
+</div>

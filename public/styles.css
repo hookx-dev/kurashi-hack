@@ -374,62 +374,104 @@ img {
     font-size: 1.1rem;
 }
 
-/* CTA Button (Premium Amazon Style) */
+/* CTA Button (Premium Amazon Style & Multi-Affiliate) */
 .cta-wrapper {
-    text-align: center;
     margin-top: 40px;
 }
 
-.btn-amazon {
-    display: inline-block;
+.affiliate-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-aff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
     position: relative;
-    background: var(--amazon-btn-color);
-    border: 1px solid;
-    border-color: var(--amazon-border);
-    color: #111;
+    color: #fff;
     text-decoration: none;
-    padding: 18px 45px;
+    padding: 16px 30px;
     border-radius: 50px;
-    box-shadow: 0 4px 10px rgba(228, 121, 17, 0.2);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 100%;
     max-width: 400px;
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
-/* mybest風：ボタンに矢印をつけてクリックを促す */
-.btn-amazon::after {
+.btn-aff::after {
     content: "›";
     position: absolute;
-    right: 25px;
+    right: 20px;
     top: 50%;
     transform: translateY(-55%);
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 300;
-    color: #333;
     transition: transform 0.2s;
 }
 
-.btn-amazon:hover::after {
+.btn-aff:hover::after {
     transform: translate(5px, -55%);
 }
 
-.btn-amazon:hover {
-    background: var(--amazon-btn-hover);
+.btn-aff:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(228, 121, 17, 0.3);
     text-decoration: none;
+    color: #fff;
 }
 
-.btn-amazon:active {
+.btn-aff:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 5px rgba(228, 121, 17, 0.3);
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+/* Amazon */
+.btn-amazon {
+    background: var(--amazon-btn-color);
+    border: 1px solid var(--amazon-border);
+    color: #111 !important;
+    box-shadow: 0 4px 10px rgba(228, 121, 17, 0.2);
+}
+.btn-amazon:hover {
+    background: var(--amazon-btn-hover);
+    box-shadow: 0 6px 15px rgba(228, 121, 17, 0.3);
+}
+
+/* Rakuten */
+.btn-rakuten {
+    background: linear-gradient(180deg, #bf0000, #990000);
+    border: 1px solid #730000;
+    box-shadow: 0 4px 10px rgba(191, 0, 0, 0.2);
+}
+.btn-rakuten:hover {
+    background: linear-gradient(180deg, #d90000, #b30000);
+    box-shadow: 0 6px 15px rgba(191, 0, 0, 0.3);
+}
+
+/* Yahoo */
+.btn-yahoo {
+    background: linear-gradient(180deg, #ff0033, #cc0029); /* Yahoo is actually red/blue, but let's use a nice soft red-pink for Yahoo Shopping, wait Yahoo shopping is red. Or maybe blue? Yahoo! Shopping uses red logo recently */
+    border: 1px solid #b30024;
+    box-shadow: 0 4px 10px rgba(255, 0, 51, 0.2);
+}
+.btn-yahoo:hover {
+    background: linear-gradient(180deg, #ff1a47, #e6002e);
+    box-shadow: 0 6px 15px rgba(255, 0, 51, 0.3);
 }
 
 .btn-text {
     display: block;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 4px;
 }
 
 .btn-subtext {

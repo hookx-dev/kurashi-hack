@@ -1,0 +1,84 @@
+---
+// Pagefind search UI component
+---
+
+<div class="search-widget">
+    <div id="search"></div>
+</div>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js" is:inline></script>
+
+<script is:inline>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ 
+            element: "#search", 
+            showSubResults: true,
+            pageSize: 5,
+            translations: {
+                placeholder: "記事を検索する...",
+                clear_search: "クリア",
+                load_more: "もっと見る",
+                search_label: "検索",
+                filters_label: "フィルタ",
+                zero_results: "[SEARCH_TERM] に一致する記事はありませんでした",
+                many_results: "[SEARCH_TERM] で [COUNT] 件の記事が見つかりました",
+                one_result: "[SEARCH_TERM] で [COUNT] 件の記事が見つかりました",
+                alt_search: "[SEARCH_TERM] に一致する記事はありませんでした。[DIFFERENT_TERM] の検索結果を表示しています",
+                search_suggestion: "[SEARCH_TERM] に一致する記事はありませんでした。次の検索をお試しください: [SUBSTRING]",
+                searching: "[SEARCH_TERM] を検索しています..."
+            }
+        });
+    });
+</script>
+
+<style>
+    .search-widget {
+        background: #fff;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 35px;
+        border: 1px solid var(--border-color);
+    }
+    
+    /* Pagefind UI Overrides to match theme */
+    :global(.pagefind-ui__search-input) {
+        font-family: inherit;
+        border-radius: 8px !important;
+        border: 1px solid var(--border-color) !important;
+        background-color: #f8f9fa !important;
+    }
+    :global(.pagefind-ui__search-input:focus) {
+        border-color: var(--accent-color) !important;
+        outline: none;
+    }
+    :global(.pagefind-ui__message) {
+        font-size: 0.9rem !important;
+        color: var(--light-text) !important;
+    }
+    :global(.pagefind-ui__result-title) {
+        font-size: 1.1rem !important;
+        color: var(--primary-color) !important;
+    }
+    :global(.pagefind-ui__result-title-link:hover) {
+        color: var(--accent-color) !important;
+    }
+    :global(.pagefind-ui__result-excerpt) {
+        font-size: 0.85rem !important;
+        color: var(--text-color) !important;
+    }
+    :global(.pagefind-ui__button) {
+        background: #f1f2f6 !important;
+        border: none !important;
+        border-radius: 8px !important;
+        color: var(--primary-color) !important;
+    }
+    :global(.pagefind-ui__button:hover) {
+        background: var(--border-color) !important;
+    }
+    :global(.pagefind-ui__drawer) {
+        /* When search results are shown, avoid them spilling out weirdly */
+        padding-top: 10px;
+    }
+</style>

@@ -153,21 +153,6 @@ img {
     overflow: hidden; 
 }
 
-.post-title {
-    font-size: 1.8rem;
-    line-height: 1.5;
-    margin-bottom: 30px;
-    color: #1a1a1a;
-    font-weight: 700;
-}
-
-.eyecatch {
-    margin-bottom: 40px;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-}
-
 .eyecatch img {
     width: 100%;
     height: auto;
@@ -720,6 +705,7 @@ img {
     margin-bottom: 1rem;
     line-height: 1.4;
     color: #333;
+    font-weight: 700;
 }
 
 .post-meta {
@@ -730,8 +716,9 @@ img {
 
 .eyecatch {
     margin-bottom: 2.5rem;
-    border-radius: 12px;
+    border-radius: var(--border-radius);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .card-title {

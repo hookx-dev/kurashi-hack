@@ -39,7 +39,7 @@ const recentArticles = allArticles
         {recentArticles.map((article) => (
             <div class="recent-post-item">
                 <div class="recent-post-img">
-                    <img src={article.image} alt={article.title} />
+                    <img src={article.image} alt={article.title} loading="lazy" />
                 </div>
                 <div class="recent-post-title">
                     <a href={article.url}>{article.title}</a>

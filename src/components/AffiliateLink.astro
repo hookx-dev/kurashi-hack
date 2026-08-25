@@ -1,4 +1,6 @@
 ---
+import { RAKUTEN_LINK_PREFIX, VALUECOMMERCE_SID, VALUECOMMERCE_YAHOO_PID } from '../config/affiliates';
+
 export interface Props {
     amazonUrl: string;
 }
@@ -16,8 +18,18 @@ try {
     if (match) keyword = decodeURIComponent(match[1]);
 }
 
-const rakutenUrl = `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/`;
-const yahooUrl = `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(keyword)}`;
+const rakutenSearchUrl = `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/`;
+const yahooSearchUrl = `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(keyword)}`;
+
+// 楽天アフィリエイトIDが設定済みなら、サーチリンク形式でラップする
+const rakutenUrl = RAKUTEN_LINK_PREFIX
+    ? `${RAKUTEN_LINK_PREFIX}?pc=${encodeURIComponent(rakutenSearchUrl)}&m=${encodeURIComponent(rakutenSearchUrl)}`
+    : rakutenSearchUrl;
+
+// バリューコマースのsid/pidが設定済みなら、クリックURL形式でラップする
+const yahooUrl = (VALUECOMMERCE_SID && VALUECOMMERCE_YAHOO_PID)
+    ? `https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=${VALUECOMMERCE_SID}&pid=${VALUECOMMERCE_YAHOO_PID}&vc_url=${encodeURIComponent(yahooSearchUrl)}`
+    : yahooSearchUrl;
 ---
 
 <div class="affiliate-links">

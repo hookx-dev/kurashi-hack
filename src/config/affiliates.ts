@@ -8,7 +8,7 @@
 export const RAKUTEN_LINK_PREFIX = "";
 
 // バリューコマース管理画面「サイト管理」で確認できるサイトID
-export const VALUECOMMERCE_SID = "";
+export const VALUECOMMERCE_SID = "3779598";
 
 // バリューコマースのYahoo!ショッピング提携プログラム詳細ページで確認できるプログラムID
-export const VALUECOMMERCE_YAHOO_PID = "";
+export const VALUECOMMERCE_YAHOO_PID = "892686374";

@@ -1,43 +1,39 @@
-# Astro Starter Kit: Minimal
+# KURASHI HACK（クラシハック）
 
-```sh
-npm create astro@latest -- --template minimal
+「暮らしのちょっとした不満を、道具の力で解決する」をコンセプトにしたアフィリエイトメディアです。日々の生活で感じる「使いにくい」「片付かない」「掃除が面倒」といった小さなストレスを解消するアイテムを、実使用レビュー・リサーチをもとに紹介しています。
+
+🔗 https://kurashi-hack.pages.dev
+
+## 主な機能
+
+- 記事一覧・カテゴリ別記事ページ
+- サイト内検索（[Pagefind](https://pagefind.app/)によるビルド時インデックス生成）
+- サイトマップ自動生成
+- 楽天アフィリエイト・バリューコマース(Yahoo!ショッピング)対応の商品リンクコンポーネント
+
+## 技術スタック
+
+- **フレームワーク**: [Astro](https://astro.build/) 7
+- **検索**: Pagefind
+- **デプロイ**: Cloudflare Pages
+- **記事**: `src/pages/article-*.astro`（Astroページとして直接管理）
+
+## セットアップ
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+http://localhost:4321 で確認できます。
 
-## 🚀 Project Structure
+## ビルド
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm run build   # ./dist に出力（Pagefindインデックス含む）
+npm run preview # ビルド結果をローカルで確認
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## アフィリエイトID設定（任意）
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`src/config/affiliates.ts` で楽天アフィリエイト・バリューコマースのIDを設定できます。未設定の場合はアフィリエイトIDなしの検索URLにフォールバックします。

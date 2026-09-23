@@ -17,14 +17,16 @@ export interface Props {
     category?: string;
     image?: string;
     date?: string;
+    noindex?: boolean;
 }
 
-const { 
-  title, 
-  description = "日々の生活の小さなイライラを解決する、本当に買ってよかったおすすめアイテムを厳選してご紹介します。", 
+const {
+  title,
+  description = "日々の生活の小さなイライラを解決する、本当に買ってよかったおすすめアイテムを厳選してご紹介します。",
   category,
   image = "/favicon.svg",
-  date
+  date,
+  noindex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
@@ -65,6 +67,7 @@ const schema = {
     <meta name="description" content={description}>
     <meta name="google-adsense-account" content="ca-pub-2809438929408465">
     <meta name="google-site-verification" content="Q_1GO1wywpW6Rw9jtVxxeqmlpDKN5W9uFVfvoKvQa4Y" />
+    {noindex && <meta name="robots" content="noindex,follow" />}
 
     <!-- 正規化URL (Canonical) -->
     <link rel="canonical" href={canonicalURL} />

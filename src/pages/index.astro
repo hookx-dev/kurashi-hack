@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Load all articles
-const allArticles = Object.values(import.meta.glob('./article-*.astro', { eager: true })) as any[];
+// Load all articles (exclude ones marked noindex — thin content not ready to feature)
+const allArticles = (Object.values(import.meta.glob('./article-*.astro', { eager: true })) as any[])
+  .filter((article) => !article.noindex);
 
 // Sort by date descending
 const sortedArticles = allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

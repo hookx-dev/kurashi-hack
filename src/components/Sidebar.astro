@@ -1,8 +1,9 @@
 ---
 import Search from './Search.astro';
 
-// Load all articles
-const allArticles = Object.values(import.meta.glob('../pages/article-*.astro', { eager: true })) as any[];
+// Load all articles (exclude ones marked noindex — thin content not ready to feature)
+const allArticles = (Object.values(import.meta.glob('../pages/article-*.astro', { eager: true })) as any[])
+  .filter((article) => !article.noindex);
 
 // Calculate categories
 const categoryCounts: Record<string, number> = {};

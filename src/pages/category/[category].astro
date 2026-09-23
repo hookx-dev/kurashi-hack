@@ -2,8 +2,9 @@
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const allArticles = Object.values(import.meta.glob('../article-*.astro', { eager: true })) as any[];
-  
+  const allArticles = (Object.values(import.meta.glob('../article-*.astro', { eager: true })) as any[])
+    .filter((article) => !article.noindex);
+
   const uniqueCategories = [...new Set(allArticles.map((article) => article.category).filter(Boolean))];
   
   return uniqueCategories.map((category) => {
